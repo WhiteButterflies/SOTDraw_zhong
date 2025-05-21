@@ -88,7 +88,7 @@ class LaSOTDataset(Dataset):
             result_list = [ head + item for item in meta_data[video]['img_names']]
             self.videos[video] = LaSOTVideo(video,
                                         #   dataset_root,
-                                          '/home/data/lasot', #数据集的路径
+                                          os.path.join(dataset_root,'lasot'), #数据集的路径
                                           meta_data[video]['video_dir'],
                                           meta_data[video]['init_rect'],
                                           #meta_data[video]['img_names'],

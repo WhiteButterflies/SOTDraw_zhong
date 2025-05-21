@@ -4,7 +4,7 @@
 
 import numpy as np
 from numba import jit
-from . import region
+# from . import region
 
 
 def calculate_failures(trajectory):
@@ -34,6 +34,7 @@ def calculate_accuracy(pred_trajectory, gt_trajectory,
         acc: average overlap
         overlaps: per frame overlaps
     """
+    from . import region
     pred_trajectory_ = pred_trajectory
     if not ignore_unknown:
         unkown = [len(x) == 1 and x[0] == 0 for x in pred_trajectory]
