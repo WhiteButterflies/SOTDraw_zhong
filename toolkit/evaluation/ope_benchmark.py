@@ -49,7 +49,12 @@ class OPEBenchmark:
                 if hasattr(video, 'absent'):
                     gt_traj = gt_traj[video.absent == 1]
                     tracker_traj = tracker_traj[video.absent == 1]
+                '''added by liu for debug'''
+                if (len(tracker_traj.shape)) == 0:
+                    print("tracker_traj shape is 0, please check the tracker result，{}".format(video.name))
+                '''ended '''
                 success_ret_[video.name] = success_overlap(gt_traj, tracker_traj, n_frame)
+
             success_ret[tracker_name] = success_ret_
         return success_ret
 

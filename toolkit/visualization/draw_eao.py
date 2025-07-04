@@ -20,7 +20,8 @@ def draw_eao(result):
     result = res
     fig = plt.figure(figsize=(13, 11)) #9.1, 8.4
     ax = fig.add_subplot(111, projection='polar')
-    angles = np.linspace(0, 2*np.pi, 16, endpoint=True)
+    # angles = np.linspace(0, 2*np.pi, 16, endpoint=True)
+    angles = np.linspace(0, 2*np.pi, len(attrs)+1, endpoint=True)
 
     attr2value = []
     for i, (tracker_name, ret) in enumerate(result.items()):

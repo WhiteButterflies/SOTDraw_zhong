@@ -39,9 +39,33 @@ class OTBVideo(Video):
             tracker_names = [tracker_names]
         for name in tracker_names:
             traj_file = os.path.join(path, name, self.name+'.txt')
+            '''begin ori OTB 2015'''
+            # if not os.path.exists(traj_file):
+            #     if self.name == 'FleetFace':
+            #         txt_name = 'fleetface.txt'
+            #     elif self.name[1:] == 'ogging-1':
+            #         txt_name = self.name[0] + 'ogging_1.txt'
+            #     elif self.name[1:] == 'ogging-2':
+            #         txt_name = self.name[0] + 'ogging_2.txt'
+            #     elif self.name[1:] == 'kating2-1':
+            #         txt_name = self.name[0] + 'kating2_1.txt'
+            #     elif self.name[1:] == 'kating2-2':
+            #         txt_name = self.name[0] + 'kating2_2.txt'
+            #     elif self.name == 'FaceOcc1':
+            #         txt_name = self.name[0] + 'aceocc1.txt'
+            #     elif self.name == 'FaceOcc2':
+            #         txt_name = self.name[0] + 'aceocc2.txt'
+            #     elif self.name[1:] == 'uman4-2' or self.name[1:] == 'uman4':
+            #         txt_name = self.name[0] + 'uman4_2.txt'
+            #     else:
+            #         txt_name = self.name[0]+self.name[1:]+'.txt'
+            #     traj_file = os.path.join(path, name, txt_name)
+            #     traj_file2 = os.path.join(path, name, txt_name[0].lower() + txt_name[1:])
+            #     traj_file3 = os.path.join(path, name, txt_name.lower())
+            '''end ori'''
             if not os.path.exists(traj_file):
                 if self.name == 'FleetFace':
-                    txt_name = 'fleetface.txt'
+                    txt_name = 'fleetFace.txt'
                 elif self.name[1:] == 'ogging-1':
                     txt_name = self.name[0] + 'ogging_1.txt'
                 elif self.name[1:] == 'ogging-2':
@@ -51,16 +75,17 @@ class OTBVideo(Video):
                 elif self.name[1:] == 'kating2-2':
                     txt_name = self.name[0] + 'kating2_2.txt'
                 elif self.name == 'FaceOcc1':
-                    txt_name = self.name[0] + 'aceocc1.txt'
+                    txt_name = self.name[0] + 'aceOcc1.txt'
                 elif self.name == 'FaceOcc2':
-                    txt_name = self.name[0] + 'aceocc2.txt'
+                    txt_name = self.name[0] + 'aceOcc2.txt'
                 elif self.name[1:] == 'uman4-2' or self.name[1:] == 'uman4':
-                    txt_name = self.name[0] + 'uman4_2.txt'
+                    txt_name = self.name[0] + 'uman4.txt'
                 else:
-                    txt_name = self.name[0]+self.name[1:]+'.txt'
+                    txt_name = self.name[0] + self.name[1:] + '.txt'
                 traj_file = os.path.join(path, name, txt_name)
                 traj_file2 = os.path.join(path, name, txt_name[0].lower() + txt_name[1:])
                 traj_file3 = os.path.join(path, name, txt_name.lower())
+
                 # print(traj_file,traj_file2,traj_file3)
             try:
 
@@ -187,7 +212,8 @@ class OTBDataset(Dataset):
     """
     def __init__(self, name, dataset_root, load_img=False):
         super(OTBDataset, self).__init__(name, dataset_root)
-        with open(os.path.join(dataset_root, name+'.json'), 'r') as f:
+        # with open(os.path.join(dataset_root, name+'.json'), 'r') as f:
+        with open('./SOT_eval/OTB100_dataset.json', 'r') as f:
             meta_data = json.load(f)
 
         # load videos
@@ -196,7 +222,8 @@ class OTBDataset(Dataset):
         for video in pbar:
             pbar.set_postfix_str(video)
             self.videos[video] = OTBVideo(video,
-                                          dataset_root,
+                                          # dataset_root,
+                                          os.path.join(dataset_root,'OTB2015'),
                                           meta_data[video]['video_dir'],
                                           meta_data[video]['init_rect'],
                                           meta_data[video]['img_names'],

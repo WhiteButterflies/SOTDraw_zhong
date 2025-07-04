@@ -52,12 +52,15 @@ if __name__ == '__main__':
         benchmark.show_result(success_ret, precision_ret,
                 show_video_level=args.show_video_level)
         if args.vis:
+            res = {}
             for attr, videos in dataset.attr.items():
-                draw_success_precision(success_ret,
+                r=draw_success_precision(success_ret,
                                            name=dataset.name,
                                            videos=videos,
                                            attr=attr,
                                            precision_ret=precision_ret)
+                res.update({attr: r})
+            draw_eao(res)
     elif 'LaSOT' in args.dataset:
         dataset = LaSOTDataset(args.dataset, root)
         dataset.set_tracker(tracker_dir, trackers)
