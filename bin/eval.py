@@ -184,3 +184,8 @@ if __name__ == '__main__':
                 show_video_level=args.show_video_level)
         if args.vis:
             draw_f1(f1_result)
+    import json
+
+    with open("./result_json/my_dict.json", "w", encoding="utf-8") as f:
+        json.dump(res, f, ensure_ascii=False, indent=4)
+
